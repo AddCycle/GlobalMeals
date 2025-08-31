@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "globalmeals",
+  "version": "${version}",
+
+  "name": "GlobalMeals",
+  "description": "",
+  "authors": [],
+  "contact": {},
+
+  "license": "All-Rights-Reserved",
+  "icon": "assets/globalmeals/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": ["net.addcycle.globalmeals.client.GlobalMealsDataGenerator"],
+    "client": ["net.addcycle.globalmeals.client.GlobalMealsClient"],
+    "main": ["net.addcycle.globalmeals.GlobalMeals"]
+  },
+
+  "mixins": [
+    "globalmeals.mixins.json"
+    ,{
+      "config": "globalmeals.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
