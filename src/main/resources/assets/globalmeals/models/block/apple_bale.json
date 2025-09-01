@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "globalmeals:block/apple_bale"
-  }
-}

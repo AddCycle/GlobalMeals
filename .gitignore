@@ -1,6 +1,9 @@
 # User-specific stuff
 .idea/
 
+# Fabric datagen
+src/main/datagen/
+
 *.iml
 *.ipr
 *.iws

@@ -1,6 +1,7 @@
 package net.addcycle.globalmeals.init;
 
 import net.addcycle.globalmeals.GlobalMeals;
+import net.addcycle.globalmeals.items.ItemKnife;
 import net.addcycle.globalmeals.items.ModFoodComponents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.item.TooltipContext;
@@ -31,6 +32,9 @@ public class ModItems {
             tooltip.add(Text.translatable("itemTooltip.globalmeals.glowing_apple").formatted(Formatting.YELLOW));
         }
     }, "glowing_apple");
+
+    public static final Item IRON_KNIFE = registerItem(new ItemKnife(new Item.Settings()
+            .maxCount(1)), "iron_knife");
 
     public static void initialize() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK)
