@@ -18,6 +18,7 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.GLOWING_APPLE))
                     .entries(((displayContext, entries) -> {
                         entries.add(ModItems.GLOWING_APPLE);
+                        entries.add(ModBlocks.APPLE_BALE);
                     })).build());
 
     public static final RegistryKey<ItemGroup> TOOLS_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(GlobalMeals.MODID, "tools_group"));
@@ -28,6 +29,7 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.IRON_KNIFE))
                     .entries(((displayContext, entries) -> {
                         entries.add(ModItems.IRON_KNIFE);
+                        entries.add(ModBlocks.CUTTING_BOARD);
                     })).build());
 
     public static void registerItemGroups() {}

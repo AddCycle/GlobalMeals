@@ -18,6 +18,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
@@ -94,6 +95,7 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
             translationBuilder.add("item.globalmeals.iron_knife", "Iron Knife");
 
             translationBuilder.add("block.globalmeals.apple_bale", "Apple Bale");
+            translationBuilder.add("block.globalmeals.cutting_board", "Cutting Board");
 
             translationBuilder.add("itemTooltip.globalmeals.glowing_apple", "I see you...");
             translationBuilder.add("itemGroup.globalmeals.food", "Additional Foodstuff");
@@ -132,6 +134,17 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
                     .criterion(hasItem(Items.GLOWSTONE_DUST), conditionsFromItem(Items.GLOWSTONE_DUST))
                     .offerTo(exporter);
             offerReversibleCompactingRecipes(exporter, RecipeCategory.FOOD, Items.APPLE, RecipeCategory.FOOD, ModBlocks.APPLE_BALE);
+            ShapedRecipeJsonBuilder.create(RecipeCategory.FOOD, ModBlocks.CUTTING_BOARD, 1)
+                    .pattern("sp")
+                    .input('s', Items.STICK)
+                    .input('p', ItemTags.PLANKS)
+                    .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK))
+                    .criterion(hasTag(ItemTags.PLANKS), conditionsFromTag(ItemTags.PLANKS))
+                    .offerTo(exporter);
+        }
+
+        private static String hasTag(TagKey<Item> key) {
+            return "has_" + key.toString();
         }
     }
 
@@ -143,6 +156,7 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
         @Override
         public void generate() {
             addDrop(ModBlocks.APPLE_BALE);
+            addDrop(ModBlocks.CUTTING_BOARD);
         }
     }
 

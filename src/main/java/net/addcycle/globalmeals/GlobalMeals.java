@@ -1,5 +1,6 @@
 package net.addcycle.globalmeals;
 
+import net.addcycle.globalmeals.init.ModBlockEntities;
 import net.addcycle.globalmeals.init.ModBlocks;
 import net.addcycle.globalmeals.init.ModItemGroups;
 import net.addcycle.globalmeals.init.ModItems;
@@ -17,5 +18,6 @@ public class GlobalMeals implements ModInitializer {
         ModItems.initialize();
         ModBlocks.initialize();
         ModItemGroups.registerItemGroups();
+        ModBlockEntities.registerBlockEntities();
     }
 }
