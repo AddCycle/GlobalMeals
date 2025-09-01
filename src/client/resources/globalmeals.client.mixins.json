@@ -4,6 +4,9 @@
   "package": "net.addcycle.globalmeals.mixin.client",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "ItemRendererAccessor",
+    "ItemRendererMixin",
+    "ModelLoaderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

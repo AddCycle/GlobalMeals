@@ -10,13 +10,12 @@ import net.fabricmc.fabric.api.datagen.v1.provider.*;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.data.client.BlockStateModelGenerator;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.Models;
+import net.minecraft.data.client.*;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
@@ -71,7 +70,16 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
         @Override
         public void generateItemModels(ItemModelGenerator itemModelGenerator) {
             itemModelGenerator.register(ModItems.GLOWING_APPLE, Models.GENERATED);
+            registerTwoLayeredItem(itemModelGenerator, ModItems.GLOWING_APPLE);
             itemModelGenerator.register(ModItems.IRON_KNIFE, Models.HANDHELD);
+        }
+
+        private void registerTwoLayeredItem(ItemModelGenerator itemModelGenerator, @SuppressWarnings("SameParameterValue") Item item) {
+            String itemName = Registries.ITEM.getId(item).getPath();
+            Identifier id = new Identifier(GlobalMeals.MODID, "item/" + itemName + "_gui");
+            Identifier layer0 = new Identifier(GlobalMeals.MODID, "item/" + itemName);
+            Identifier layer1 = new Identifier(GlobalMeals.MODID, "item/layers/glint");
+            Models.GENERATED_TWO_LAYERS.upload(id, TextureMap.layered(layer0, layer1), itemModelGenerator.writer);
         }
     }
 
@@ -159,6 +167,8 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
                     )
                     .criterion("got_glowing_apple", InventoryChangedCriterion.Conditions.items(ModItems.GLOWING_APPLE))
                     .build(consumer, GlobalMeals.MODID + "/glowing_apple");
+
+            @SuppressWarnings("unused")
             Advancement craftOrFindKnife = Advancement.Builder.create()
                     .parent(getGlowingApple)
                     .display(

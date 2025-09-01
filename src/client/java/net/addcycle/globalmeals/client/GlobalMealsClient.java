@@ -6,5 +6,6 @@ public class GlobalMealsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        // Nothing for now...
     }
 }
