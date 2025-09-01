@@ -2,7 +2,7 @@
 .idea/
 
 # Fabric datagen
-src/main/datagen/
+src/main/generated/
 
 *.iml
 *.ipr

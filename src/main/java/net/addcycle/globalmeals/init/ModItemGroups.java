@@ -20,5 +20,15 @@ public class ModItemGroups {
                         entries.add(ModItems.GLOWING_APPLE);
                     })).build());
 
+    public static final RegistryKey<ItemGroup> TOOLS_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(GlobalMeals.MODID, "tools_group"));
+    public static final ItemGroup TOOLS_GROUP = Registry.register(Registries.ITEM_GROUP,
+            new Identifier(GlobalMeals.MODID, "tools_group"),
+            new ItemGroup.Builder(ItemGroup.Row.BOTTOM, 1)
+                    .displayName(Text.translatable("itemGroup.globalmeals.tools"))
+                    .icon(() -> new ItemStack(ModItems.IRON_KNIFE))
+                    .entries(((displayContext, entries) -> {
+                        entries.add(ModItems.IRON_KNIFE);
+                    })).build());
+
     public static void registerItemGroups() {}
 }

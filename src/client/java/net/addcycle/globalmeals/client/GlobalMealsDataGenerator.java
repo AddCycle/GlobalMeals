@@ -7,25 +7,24 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
-import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
-import net.minecraft.data.DataWriter;
+import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementFrame;
+import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
-import net.minecraft.data.server.loottable.LootTableGenerator;
 import net.minecraft.data.server.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTable;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
@@ -39,6 +38,7 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(LangGenerator::new);
         pack.addProvider(RecipeGenerator::new);
         pack.addProvider(BlockLootTableGenerator::new);
+        pack.addProvider(AdvancementGenerator::new);
     }
 
     private static class TagGenerator extends FabricTagProvider.ItemTagProvider {
@@ -89,6 +89,12 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
 
             translationBuilder.add("itemTooltip.globalmeals.glowing_apple", "I see you...");
             translationBuilder.add("itemGroup.globalmeals.food", "Additional Foodstuff");
+            translationBuilder.add("itemGroup.globalmeals.tools", "Kitchen Utensils");
+
+            translationBuilder.add("advancement.globalmeals.glowing_apple.title", "Moving Glowstone");
+            translationBuilder.add("advancement.globalmeals.glowing_apple.description", "Find or craft a Glowing Apple");
+            translationBuilder.add("advancement.globalmeals.got_knife.title", "Got yourself a great tool don't ya ?!");
+            translationBuilder.add("advancement.globalmeals.got_knife.description", "Find or craft an Iron Knife");
         }
     }
 
@@ -129,6 +135,44 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
         @Override
         public void generate() {
             addDrop(ModBlocks.APPLE_BALE);
+        }
+    }
+
+    private static class AdvancementGenerator extends FabricAdvancementProvider {
+
+        protected AdvancementGenerator(FabricDataOutput output) {
+            super(output);
+        }
+
+        @Override
+        public void generateAdvancement(Consumer<Advancement> consumer) {
+            Advancement getGlowingApple = Advancement.Builder.create()
+                    .display(
+                            ModItems.GLOWING_APPLE,
+                            Text.translatable("advancement.globalmeals.glowing_apple.title"),
+                            Text.translatable("advancement.globalmeals.glowing_apple.description"),
+                            Identifier.of("minecraft", "textures/gui/advancements/backgrounds/adventure.png"),
+                            AdvancementFrame.TASK,
+                            true,
+                            true,
+                            false
+                    )
+                    .criterion("got_glowing_apple", InventoryChangedCriterion.Conditions.items(ModItems.GLOWING_APPLE))
+                    .build(consumer, GlobalMeals.MODID + "/glowing_apple");
+            Advancement craftOrFindKnife = Advancement.Builder.create()
+                    .parent(getGlowingApple)
+                    .display(
+                            ModItems.IRON_KNIFE,
+                            Text.translatable("advancement.globalmeals.got_knife.title"),
+                            Text.translatable("advancement.globalmeals.got_knife.description"),
+                            null,
+                            AdvancementFrame.GOAL,
+                            true,
+                            true,
+                            false
+                    )
+                    .criterion("got_knife", InventoryChangedCriterion.Conditions.items(ModItems.IRON_KNIFE))
+                    .build(consumer, GlobalMeals.MODID + "/got_knife");
         }
     }
 }
