@@ -4,12 +4,11 @@ import net.addcycle.globalmeals.blocks.entity.CuttingBoardEntity;
 import net.addcycle.globalmeals.items.ItemKnife;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -46,8 +45,7 @@ public class CuttingBoardBlock extends BlockWithEntity implements BlockEntityPro
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof CuttingBoardEntity) {
-                // FIXME
-                // ItemScatterer.spawn(world, pos, (CuttingBoardEntity)entity);
+                ItemScatterer.spawn(world, pos, (CuttingBoardEntity)entity);
                 world.updateComparators(pos, this);
             }
         }
@@ -84,10 +82,5 @@ public class CuttingBoardBlock extends BlockWithEntity implements BlockEntityPro
             }
         }
         return ActionResult.SUCCESS;
-    }
-
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return null; // FIXME
     }
 }
