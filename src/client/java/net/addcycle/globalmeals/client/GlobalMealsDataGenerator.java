@@ -10,15 +10,18 @@ import net.fabricmc.fabric.api.datagen.v1.provider.*;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.data.client.*;
-import net.minecraft.data.server.recipe.*;
+import net.minecraft.data.client.BlockStateModelGenerator;
+import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Models;
+import net.minecraft.data.client.TextureMap;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
@@ -66,6 +69,7 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
         @Override
         public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
             blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.APPLE_BALE);
+            blockStateModelGenerator.registerSimpleState(ModBlocks.CUTTING_BOARD);
         }
 
         @Override
@@ -143,6 +147,7 @@ public class GlobalMealsDataGenerator implements DataGeneratorEntrypoint {
                     .offerTo(exporter);
         }
 
+        @SuppressWarnings("SameParameterValue")
         private static String hasTag(TagKey<Item> key) {
             return "has_" + key.toString();
         }
