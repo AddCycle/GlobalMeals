@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 public class CuttingBoardBlockEntityRenderer implements BlockEntityRenderer<CuttingBoardEntity> {
     public CuttingBoardBlockEntityRenderer(BlockEntityRendererFactory.Context ignoredCtx) {}
 
-    @SuppressWarnings("DataFlowIssue")
     @Override
     public void render(CuttingBoardEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();

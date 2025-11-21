@@ -1,9 +1,6 @@
 package net.addcycle.globalmeals;
 
-import net.addcycle.globalmeals.init.ModBlockEntities;
-import net.addcycle.globalmeals.init.ModBlocks;
-import net.addcycle.globalmeals.init.ModItemGroups;
-import net.addcycle.globalmeals.init.ModItems;
+import net.addcycle.globalmeals.init.*;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,5 +16,6 @@ public class GlobalMeals implements ModInitializer {
         ModBlocks.initialize();
         ModItemGroups.registerItemGroups();
         ModBlockEntities.registerBlockEntities();
+        ModEntities.registerEntities();
     }
 }

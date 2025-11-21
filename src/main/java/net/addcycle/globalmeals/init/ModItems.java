@@ -18,7 +18,6 @@ import java.util.List;
 
 public class ModItems {
 
-
     public static final Item GLOWING_APPLE = registerItem(new Item(new Item.Settings()
             .food(ModFoodComponents.GLOWING_FOOD_COMPONENT)) {
         @Override
